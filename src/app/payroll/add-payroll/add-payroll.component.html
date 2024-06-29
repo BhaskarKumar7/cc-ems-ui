@@ -1,0 +1,122 @@
+<div class="wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Search for employee</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <form #empSearchFrm="ngForm" (submit)="calculatePayroll()">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empEmail">Employee Email id</label>
+                                            <input type="text" class="form-control" id="empEmail" [(ngModel)]="empEmail" name="empEmail" placeholder="enter email and calculate payroll" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" [disabled]="!empSearchFrm.valid">Calculate payroll</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Employee salary breakup</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="payrollYear">Select payroll year</label>
+                                        <select class="form-select choices-single" id="payrollYear" name="payrollYear" [(ngModel)]="payrollYear">
+                                           <option value="0" selected>---SELECT PAYROLL YEAR---</option>
+                                           <option *ngFor="let year of years" [value]="year">{{year}}</option> 
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="payrollMonth">Select payroll month</label>
+                                        <select class="form-select choices-single" id="payrollMonth" name="payrollMonth" [(ngModel)]="payrollMonth">
+                                            <option value="0" selected>---SELECT PAYROLL MONTH---</option>
+                                            <option *ngFor="let month of months" [value]="month">{{month}}</option> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Earnings</th>
+                                                <th colspan="2">Deductions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Basic pay</td>
+                                                <td>{{payroll.basicPay | number: '1.2-2'}}</td>
+                                                <td>Professional tax</td>
+                                                <td>{{payroll.professionalTax | number: '1.2-2'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>HRA amount</td>
+                                                <td>{{payroll.houseRentalAllowance | number: '1.2-2'}}</td>
+                                                <td>PF contribution</td>
+                                                <td>{{payroll.providentFund | number: '1.2-2'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Statuatory bonus</td>
+                                                <td>{{payroll.statuatoryBonus | number: '1.2-2'}}</td>
+                                                <td>TDS amount</td>
+                                                <td>{{payroll.incomeTax | number: '1.2-2'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Medical allowance</td>
+                                                <td>{{payroll.medicalAllowance | number: '1.2-2'}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Conveyance allowance</td>
+                                                <td>{{payroll.conveyanceAllowance | number: '1.2-2'}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Special allowance</td>
+                                                <td>{{payroll.specialAllowance | number: '1.2-2'}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Earnings</td>
+                                                <td>{{payroll.totalEarnings | number: '1.2-2'}}</td>
+                                                <td>Total Deductions</td>
+                                                <td>{{payroll.totalDeductions | number: '1.2-2'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Take home pay</td>
+                                                <td colspan="2">{{payroll.netTakeHome | number: '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                               <td colspan="4">
+                                                <button class="btn btn-success" type="button" (click)="addPayroll()">Add payroll</button>
+                                               </td> 
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

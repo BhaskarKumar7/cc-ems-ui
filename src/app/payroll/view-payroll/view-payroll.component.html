@@ -1,0 +1,70 @@
+<div class="wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Search payroll details of employee</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <form #empSearchFrm="ngForm" (submit)="fetchEmployeePayroll()">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empId">Employee identification number</label>
+                                            <input type="text" class="form-control" id="empId" [(ngModel)]="empId" name="empId" placeholder="enter employee ID" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="payrollYear">Select payroll year</label>
+                                            <select class="form-select choices-single" id="payrollYear" name="payrollYear" [(ngModel)]="payrollYear">
+                                               <option value="0" selected>---SELECT PAYROLL YEAR---</option>
+                                               <option *ngFor="let year of years" [value]="year">{{year}}</option> 
+                                            </select>
+                                        </div><br>
+                                        <button type="submit" class="btn btn-primary" [disabled]="!empSearchFrm.valid">Fetch Payroll Details</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Employee Payroll list</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <tr>
+                                            <th>Employee id</th>
+                                            <th>Employee name</th>
+                                            <th>Employee job role</th>
+                                            <th>Payroll id</th>
+                                            <th>Payroll month</th>
+                                            <th>Take home amount</th>
+                                            <th>Download statement</th>
+                                        </tr>
+                                        <tr *ngFor="let payroll of payrollList">
+                                            <td>{{payroll.employeeId}}</td>
+                                            <td>{{payroll.empName}}</td>
+                                            <td>{{payroll.empJobRole}}</td>
+                                            <td>{{payroll.payrollId}}</td>
+                                            <td>{{payroll.payrollMonthName}}</td>
+                                            <td>{{payroll.netTakeHome}}</td>
+                                            <td><a href="#"><i class="align-middle" data-feather="trash"></i>download</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

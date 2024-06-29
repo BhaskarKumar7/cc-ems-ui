@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee id</th>
+                                        <th>First name</th>
+                                        <th>Last name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let emp of employees">
+                                        <td #empId>{{emp.employeeId}}</td>
+                                        <td>{{emp.firstName}}</td>
+                                        <td>{{emp.lastName}}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm" (click)="deleteEmployee(empId.innerHTML)"><i class="fas fa-times"></i> Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

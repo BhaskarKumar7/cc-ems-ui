@@ -1,0 +1,202 @@
+<div class="wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 style="text-align: center;">Select an employee to fetch the details</h4><br>
+                                <div class="row">
+                                    <div class="mb-3 col-md-12">
+                                        <select class="form-select choices-single" id="empDropdown" name="empDropdown" [(ngModel)]="selectedEmpId" (change)="populateEmployeeDetails()" required>
+                                            <option value="">--- SELECT AN EMPLOYEE ---</option>
+                                            <option *ngFor="let employee of employees" [value]="employee.employeeId">{{employee.firstName}} {{employee.lastName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 style="text-align: center;">You can update employee details here</h4><br>
+                                <form #updateEmpForm="ngForm" (submit)="updateEmployeeDetails()">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="firstName">Employee first name</label>
+                                            <input type="text" class="form-control" id="firstName" [(ngModel)]="employeeModel.firstName" name="firstName" placeholder="enter first name" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="lastName">Employee last name</label>
+                                            <input type="text" class="form-control" id="lastName" [(ngModel)]="employeeModel.lastName" name="lastName" placeholder="enter last name" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="emailId">Employee email address</label>
+                                            <input type="text" class="form-control" id="emailId" name="emailId" [(ngModel)]="employeeModel.email" placeholder="enter email address" required readonly>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="mobileNumber">Employee mobile number</label>
+                                            <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" [(ngModel)]="employeeModel.mobileNumber" placeholder="enter mobile number" required readonly>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="mb-3 col-md-2">
+                                            <label class="form-label" for="year">Year</label>
+                                            <select class="form-select choices-single" id="year" name="year" [(ngModel)]="employeeModel.year" (change)="populateMonths()" required>
+                                                <option *ngFor="let yr of years" [value]="yr">{{yr}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-2">
+                                            <label class="form-label" for="month">Month</label>
+                                            <select class="form-select choices-single" id="month" name="month" [(ngModel)]="employeeModel.month" (change)="populateDays()" required>
+                                                <option *ngFor="let mnth of months" [value]="mnth">{{mnth}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-2">
+                                            <label class="form-label" for="day">Day</label>
+                                            <select class="form-select choices-single" id="day" name="day" [(ngModel)]="employeeModel.day" required>
+                                                <option *ngFor="let d of days" [value]="d">{{d}}</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="year">Employee gender</label><br>
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="maleEmp" [(ngModel)]="employeeModel.gender" name="employeeGender" value="MALE" required>
+                                                <span class="form-check-label">
+                                                    Male
+                                                </span>
+                                            </label>
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="femaleEmp" [(ngModel)]="employeeModel.gender" name="employeeGender" value="FEMALE">
+                                                <span class="form-check-label">
+                                                    Female
+                                                </span>
+                                            </label>
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="otherEmp" [(ngModel)]="employeeModel.gender" name="employeeGender" value="OTHERS">
+                                                <span class="form-check-label">
+                                                    Others
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empPan">Employee PAN</label>
+                                            <input type="text" class="form-control" id="empPan" name="empPan" [(ngModel)]="employeeModel.panNumber" placeholder="enter permanent acc no" required readonly>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empUan">Employee UAN</label>
+                                            <input type="text" class="form-control" id="empUan" name="empUan" [(ngModel)]="employeeModel.universalAccountNumber" placeholder="enter universal acc no" required readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empDepartment">Employee department</label>
+                                            <select class="form-select choices-single" id="empDepartment" name="empDepartment" [(ngModel)]="departmentModel.deptId" (change)="fetchJobRolesByDept($event)" required>
+                                                    <option *ngFor="let dept of deptArray" [value]="dept.deptId">{{dept.deptName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empJobRole">Employee job role</label>
+                                            <select class="form-select choices-single" id="empJobRole" name="empJobRole" [(ngModel)]="jobRoleModel.roleId" required>
+                                                    <option *ngFor="let role of jobRolesArray" [value]="role.roleId">{{role.roleName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br><br><h4 style="text-align: center;">Add employee address details</h4><br>
+                                    <!-- address section start -->
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empCountry">Employee country</label>
+                                            <input type="text" class="form-control" id="empCountry" name="empCountry" [(ngModel)]="addressModel.country" placeholder="enter employee country" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empState">Employee state</label>
+                                            <input type="text" class="form-control" id="empState" name="empState" [(ngModel)]="addressModel.state" placeholder="enter employee state" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empCity">Employee city</label>
+                                            <input type="text" class="form-control" id="empCity" name="empCity" [(ngModel)]="addressModel.city" placeholder="enter employee city" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empPincode">Employee pincode</label>
+                                            <input type="text" class="form-control" id="empPincode" name="empPincode" [(ngModel)]="addressModel.pincode" placeholder="enter employee pincode" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-12">
+                                            <label class="form-label" for="empAddrsLine">Employee address line</label>
+                                            <input type="text" class="form-control" id="empAddrsLine" name="empAddrsLine" [(ngModel)]="addressModel.addressLine" placeholder="enter employee address line" required>
+                                        </div>
+                                    </div>
+                                     <!-- address section end -->
+                                     
+                                     <!-- bank details section start -->
+                                     <br><br><h4 style="text-align: center;">Add employee bank details</h4><br>
+                                     
+                                      <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankName">Employee bank name</label>
+                                            <input type="text" class="form-control" id="empBankName" name="empBankName" [(ngModel)]="bankDetailsModel.bankName" placeholder="enter employee bank name" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankIfsc">Employee bank IFSC code</label>
+                                            <input type="text" class="form-control" id="empBankIfsc" name="empBankIfsc" [(ngModel)]="bankDetailsModel.ifscCode" placeholder="enter employee bank ifsc code" required>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankBranch">Employee bank branch</label>
+                                            <input type="text" class="form-control" id="empBankBranch" name="empBankBranch" [(ngModel)]="bankDetailsModel.bankBranch" placeholder="enter employee bank branch" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankCity">Employee bank city</label>
+                                            <input type="text" class="form-control" id="empBankCity" name="empBankCity" [(ngModel)]="bankDetailsModel.bankCity" placeholder="enter employee bank city" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankState">Employee bank state</label>
+                                            <input type="text" class="form-control" id="empBankState" name="empBankState" [(ngModel)]="bankDetailsModel.bankState" placeholder="enter employee bank state" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankDist">Employee bank district</label>
+                                            <input type="text" class="form-control" id="empBankDist" name="empBankDist" [(ngModel)]="bankDetailsModel.bankDistrict" placeholder="enter employee bank district" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="empBankAccNo">Employee bank account number</label>
+                                            <input type="text" class="form-control" id="empBankAccNo" name="empBankAccNo" [(ngModel)]="bankDetailsModel.bankAccountNumber" placeholder="enter employee bank account number" required>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="ctc">Annual CTC amount</label>
+                                            <input type="text" class="form-control" id="ctc" name="ctc" [(ngModel)]="employeeModel.ctc" placeholder="enter ctc amount" required>
+                                        </div>
+                                    </div>
+                                    <!-- bank details section start -->
+                                    <br>
+                                    <button type="submit" class="btn btn-primary" [disabled]="!updateEmpForm.valid">Update employee details</button>
+                                </form>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
