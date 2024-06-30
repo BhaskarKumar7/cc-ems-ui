@@ -2,6 +2,50 @@
 	<a class="sidebar-toggle js-sidebar-toggle">
 		<i class="hamburger align-self-center"></i>
 	</a>
+	<ul class="navbar-nav d-none d-lg-flex">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="empDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">
+				Manage employees
+			</a>
+			<div class="dropdown-menu" aria-labelledby="empDropdown">
+				<a class="dropdown-item" [routerLink]="['/user/add-employee']"><i class="align-middle" data-feather="user-plus"></i>
+					Add employee</a>
+				<a class="dropdown-item" [routerLink]="['/user/edit-employee']"><i class="align-middle" data-feather="user-check"></i>
+					Edit employee</a>
+				<a class="dropdown-item" [routerLink]="['/user/delete-employee']"><i class="align-middle" data-feather="user-x"></i>
+					Delete employee</a>
+				<a class="dropdown-item" [routerLink]="['/user/list-employees']"><i class="align-middle" data-feather="users"></i>
+					Employees list</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="payrollDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">
+				Employee payroll
+			</a>
+			<div class="dropdown-menu" aria-labelledby="payrollDropdown">
+				<a class="dropdown-item" [routerLink]="['/user/add-payroll']"><i class="align-middle" data-feather="dollar-sign"></i>
+					Add payroll</a>
+				<a class="dropdown-item" [routerLink]="['/user/view-payroll']"><i class="align-middle" data-feather="dollar-sign"></i>
+					View payroll</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">
+				Employee Attendance
+			</a>
+			<div class="dropdown-menu" aria-labelledby="attendanceDropdown">
+				<a class="dropdown-item" [routerLink]="['/user/add-attendance']"><i class="align-middle" data-feather="clock"></i>
+					Add Attendance</a>
+				<a class="dropdown-item" [routerLink]="['/user/add-absence']"><i class="align-middle" data-feather="clock"></i>
+					Add absence</a>
+				<a class="dropdown-item" [routerLink]="['/user/view-attendance']"><i class="align-middle" data-feather="clock"></i>
+					View Attendance</a>
+			</div>
+		</li>
+	</ul>
 	<div class="navbar-collapse collapse">
 		<ul class="navbar-nav navbar-align">
 			<li class="nav-item dropdown">
@@ -9,12 +53,12 @@
 					<img src="assets/images/user.svg" class="avatar img-fluid rounded" alt="Charles Hall" />
 				</a>
 				<div class="dropdown-menu dropdown-menu-end">
-					<a class='dropdown-item' href='pages-profile.html'><i class="align-middle me-1"
+					<a class='dropdown-item' href='#'><i class="align-middle me-1"
 							data-feather="user"></i> Profile</a>
 					<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
 						Analytics</a>
 					<div class="dropdown-divider"></div>
-					<a class='dropdown-item' href='pages-settings.html'><i class="align-middle me-1"
+					<a class='dropdown-item' href='#'><i class="align-middle me-1"
 							data-feather="settings"></i> Settings &
 						Privacy</a>
 					<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help

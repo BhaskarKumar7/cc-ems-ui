@@ -18,6 +18,7 @@ import { ViewPayrollComponent } from './payroll/view-payroll/view-payroll.compon
 import { AddAttendanceComponent } from './attendance/add-attendance/add-attendance.component';
 import { ViewAttendanceComponent } from './attendance/view-attendance/view-attendance.component';
 import { NOTYF, notyfFactory } from './shared/utils/notyf.token';
+import { AddAbsenceComponent } from './attendance/add-absence/add-absence.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NOTYF, notyfFactory } from './shared/utils/notyf.token';
     AddPayrollComponent,
     ViewPayrollComponent,
     AddAttendanceComponent,
-    ViewAttendanceComponent
+    ViewAttendanceComponent,
+    AddAbsenceComponent
   ],
   imports: [
     BrowserModule,

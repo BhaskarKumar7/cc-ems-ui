@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <app-sidebar></app-sidebar>
+    <!-- <app-sidebar></app-sidebar> -->
     <div class="main">
         <app-header></app-header>
         <main class="content">
@@ -8,7 +8,90 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                
+                                <div class="row">
+                                    <div class="mb-3 col-md-5">
+                                        <label class="form-label" for="empId">Employee id number</label>
+                                        <input type="text" class="form-control" id="empId" [(ngModel)]="enteredEmpId" name="empId" placeholder="enter employee number">
+                                    </div>
+                                    <div class="mb-3 col-md-5">
+                                        <label class="form-label" for="month">Select month to add the attendance</label>
+                                        <select class="form-select choices-single" id="month" name="month" [(ngModel)]="selectedMonth">
+                                            <option *ngFor="let mnth of months" [value]="mnth.monthNumber">{{mnth.monthName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-md-2 mt-4">
+                                        <button class="btn btn-primary" (click)="populateDays()">Get days</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Day</th>
+                                            <th>Employee name</th>
+                                            <th>Employee email</th>
+                                            <th>Intime hours</th>
+                                            <th>Intime minutes</th>
+                                            <th>Outime hours</th>
+                                            <th>Outime minutes</th>
+                                            <th>No of hours</th>
+                                            <th>Add</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let att of attendanceList; let i = index">
+                                                <td>
+                                                    {{att.day}}
+                                                    <input type="hidden" value="{{att.day}}" [(ngModel)]="attendanceList[i].day" name="attDay{{i}}">
+                                                </td>
+                                                <td>{{att.dayName}}</td>
+                                                <td>{{att.empName}}</td>
+                                                <td>{{att.empMail}}</td>
+                                                <td>
+                                                    <select class="form-select" id="intimeHrs{{i}}" name="intimeHrs{{i}}" [(ngModel)]="attendanceList[i].inTimeHours">
+                                                        <option *ngFor="let hr of hours" [value]="hr" [disabled]="att.rowDisabled === true" [selected]="hr === att.inTimeHours">{{hr}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-select" id="intimeMns{{i}}" name="intimeMns{{i}}" [(ngModel)]="attendanceList[i].inTimeMinutes">
+                                                        <option *ngFor="let mns of minutes" [value]="mns" [disabled]="att.rowDisabled === true" [selected]="mns === att.inTimeMinutes">{{mns}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-select" id="outtimeHrs{{i}}" name="outtimeHrs{{i}}" [(ngModel)]="attendanceList[i].outTimeHours">
+                                                        <option *ngFor="let hr of hours" [value]="hr" [disabled]="att.rowDisabled === true" [selected]="hr === att.outTimeHours">{{hr}}</option>              
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-select" id="outimeMns{{i}}" name="outtimeMns{{i}}" [(ngModel)]="attendanceList[i].outTimeMinutes">
+                                                        <option *ngFor="let mns of minutes" [value]="mns" [disabled]="att.rowDisabled === true"[selected]="mns === att.outTimeMinutes">{{mns}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    {{att.noOfHours | number:'1.2-2'}}
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="att.rowDisabled === false">
+                                                        <button type="button" class="btn btn-success btn-sm" (click)="addorUpdateAttendance(i)"><i class="fas fa-check"></i></button>
+                                                        <input type="hidden" id="attendanceId{{i}}" [(ngModel)]="attendanceList[i].attendanceId" name="attendanceId{{i}}" value="{{att.attendanceId}}">
+                                                        <input type="hidden" id="pos{{i}}" name="pos{{i}}" [(ngModel)]="attendanceList[i].rowIndex" value="{{att.rowIndex}}">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="att.attendanceId > 0">
+                                                        <button type="button" class="btn btn-danger btn-sm" (click)="removeAttendance(i)"><i class="fas fa-times"></i></button>
+                                                    </div>
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

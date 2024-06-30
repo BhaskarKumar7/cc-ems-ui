@@ -7,6 +7,9 @@ import { Employee } from '../types/Employee';
 import { ApiResponse } from '../types/ApiResponse';
 import { StorageService } from './storage.service';
 import { Payroll } from '../types/Payroll';
+import { Attendance } from '../types/Attendance';
+import { AttendanceResponse } from '../types/AttendanceResponse';
+import { Absence } from '../types/Absence';
 //import { TOKEN } from '../types/Constants';
 
 @Injectable({
@@ -17,6 +20,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient,private storageService: StorageService) { }
   hostUrl: string = 'http://localhost:9900/ems/';
   payrollHostUrl: string = 'http://localhost:9900/ems/payrolls/';
+  attendanceHostUrl: string = 'http://localhost:9900/ems/attendance/';
   /*httpHeaders: HttpHeaders = new HttpHeaders({
     Authorization: 'Bearer ' + this.storageService.fetchItemFromCache(TOKEN)
   });*/
@@ -86,5 +90,27 @@ export class ApiService {
 
   callViewPayrollApi(empId: number,year: number)  {
     return this.httpClient.get<Payroll[]>(this.payrollHostUrl + 'fetch/'+ empId +'/year/' + year);
+  }
+
+  callEmployeeMonthlyAttendanceApi(empId: number,month: number,year: number)  {
+    return this.httpClient.get<Attendance[]>(this.attendanceHostUrl + 'employeeId/'+ empId +'/month/'+ month +'/year/' + year);
+  }
+
+  callSaveAttendanceApi(attendance: Attendance) {
+    return this.httpClient.post<AttendanceResponse>(this.attendanceHostUrl + 'addForDay',attendance);
+  }
+
+  callRemoveAttendanceApi(id: number) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<ApiResponse>(
+      this.attendanceHostUrl + 'removeAttendance',{'attendanceId': id},{headers});
+  }
+
+  callFetchAbsenceTypesApi()  {
+    return this.httpClient.get<string[]>(this.attendanceHostUrl + 'absenceTypes');
+  }
+
+  callAddAbsenceApi(absence: Absence) {
+    return this.httpClient.post<ApiResponse>(this.attendanceHostUrl + 'absence/add',absence);
   }
 }

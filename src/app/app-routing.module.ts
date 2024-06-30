@@ -8,6 +8,9 @@ import { DeleteEmployeeComponent } from './employee/delete-employee/delete-emplo
 import { ListEmployeeComponent } from './employee/list-employee/list-employee.component';
 import { AddPayrollComponent } from './payroll/add-payroll/add-payroll.component';
 import { ViewPayrollComponent } from './payroll/view-payroll/view-payroll.component';
+import { AddAttendanceComponent } from './attendance/add-attendance/add-attendance.component';
+import { ViewAttendanceComponent } from './attendance/view-attendance/view-attendance.component';
+import { AddAbsenceComponent } from './attendance/add-absence/add-absence.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,15 @@ const routes: Routes = [
   },
   {
     path: 'user/view-payroll',component: ViewPayrollComponent
+  },
+  {
+    path: 'user/add-attendance',component: AddAttendanceComponent
+  },
+  {
+    path: 'user/view-attendance',component: ViewAttendanceComponent
+  },
+  {
+    path: 'user/add-absence',component: AddAbsenceComponent
   }
 ];
 

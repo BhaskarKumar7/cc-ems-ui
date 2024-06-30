@@ -1,0 +1,68 @@
+<div class="wrapper">
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <form #createAbsenceForm="ngForm" (submit)="saveAbsenceRequestDetails()">
+                                        <h4 style="text-align: center;">Add employee leave request details</h4><br>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="empId">Employee employee id</label>
+                                                <input type="text" class="form-control" id="empId" [(ngModel)]="absenceModel.employeeId" name="empId" placeholder="enter employee id" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="leaveType">Employee leave type</label>
+                                                <select class="form-select choices-single" id="leaveType" name="leaveType" [(ngModel)]="absenceModel.absenceType" required>
+                                                    <option *ngFor="let type of absenceTypes" [value]="type">{{type}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="fromMnth">From month</label>
+                                                <select class="form-select choices-single" id="fromMnth" name="fromMnth" [(ngModel)]="absenceModel.fromMonth" (change)="populateFromDays()" required>
+                                                    <option *ngFor="let mth of months" [value]="mth.monthNumber">{{mth.monthName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="fromDay">From date</label>
+                                                <select class="form-select choices-single" id="fromDay" name="fromDay" [(ngModel)]="absenceModel.fromDay" required>
+                                                    <option *ngFor="let day of fromDays" [value]="day">{{day}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="toMnth">To month</label>
+                                                <select class="form-select choices-single" id="toMnth" name="toMnth" [(ngModel)]="absenceModel.toMonth" (change)="populateToDays()" required>
+                                                    <option *ngFor="let mth of months" [value]="mth.monthNumber">{{mth.monthName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="toDay">To date</label>
+                                                <select class="form-select choices-single" id="toDay" name="toDay" [(ngModel)]="absenceModel.toDay" required>
+                                                    <option *ngFor="let day of toDays" [value]="day">{{day}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-12">
+                                                <button type="submit" class="btn btn-primary" [disabled]="!createAbsenceForm.valid">Submit request</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+

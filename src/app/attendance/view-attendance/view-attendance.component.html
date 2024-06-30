@@ -1,1 +1,32 @@
-<p>view-attendance works!</p>
+<div class="wrapper">
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-3 col-md-5">
+                                        <label class="form-label" for="empId">Employee id number</label>
+                                        <input type="text" class="form-control" id="empId" [(ngModel)]="enteredEmpId" name="empId" placeholder="enter employee number">
+                                    </div>
+                                    <div class="mb-3 col-md-5">
+                                        <label class="form-label" for="month">Select month to view the attendance</label>
+                                        <select class="form-select choices-single" id="month" name="month" [(ngModel)]="selectedMonth">
+                                            <option *ngFor="let mnth of months" [value]="mnth.monthNumber">{{mnth.monthName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-md-2 mt-4">
+                                        <button class="btn btn-primary" (click)="populateAttendance()">Get attendance</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
